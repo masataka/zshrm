@@ -118,5 +118,5 @@ Interface）し、インタラクティブに操作します。
 
 # チャット対話
 
-このプロジェクトは、Antigraivityを用いて開発を行いました。Angieちゃんとのチャット対話の記録は、[chatlog.md](chatlog.md)
+このプロジェクトは、Antigraivityを用いて開発を行いました。Angieちゃんとのチャット対話の記録は、[CHATLOG.md](./CHATLOG.md)
 に記録されています。
