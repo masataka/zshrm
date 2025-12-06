@@ -5,11 +5,44 @@ zshの実行履歴を効率的に管理・整理するためのCLIツールで�
 
 ## インストール (Installation)
 
+### 1. Denoのインストール
+
+このツールを使用するには Deno
+ランタイムが必要です。まだインストールしていない場合は、以下のコマンドを実行してください。
+
+**macOS / Linux:**
+
 ```bash
+curl -fsSL https://deno.land/install.sh | sh
+```
+
+### 2. zshrmのセットアップ
+
+リポジトリをダウンロードし、インストールコマンドを実行します。
+
+```bash
+# 1. リポジトリをクローン（ダウンロード）
+git clone https://github.com/masataka/zshrm.git
+
+# 2. ディレクトリへ移動
+cd zshrm
+
+# 3. インストールを実行
 deno task install
 ```
 
-これにより `zshrm` コマンドがグローバルにインストールされます。
+### 3. パスの設定（コマンドが見つからない場合）
+
+インストール完了後、`zshrm: command not found`
+と表示される場合は、Denoのインストール先（`~/.deno/bin`）にパスを通す必要があります。
+
+`.zshrc` ファイルに以下を追記してください：
+
+```bash
+export PATH="$HOME/.deno/bin:$PATH"
+```
+
+設定を反映させるにはターミナルを再起動するか、`source ~/.zshrc` を実行します。
 
 ## 概要 (Overview)
 
