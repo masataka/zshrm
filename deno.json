@@ -2,7 +2,7 @@
   "tasks": {
     "dev": "deno run --allow-read --allow-write --allow-env main.ts",
     "compile": "deno compile --allow-read --allow-write --allow-env --output zshrm main.ts",
-    "install": "deno install --allow-read --allow-write --allow-env --global --force --name zshrm main.ts"
+    "install": "deno install --config deno.json --allow-read --allow-write --allow-env --global --force --name zshrm main.ts"
   },
   "imports": {
     "@std/cli": "jsr:@std/cli@^1.0.0",
