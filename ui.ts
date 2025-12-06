@@ -14,7 +14,16 @@ export async function runUI(historyPath: string, query?: string) {
   if (cursor < 0) cursor = 0;
   
   const selectedIndices = new Set<number>();
-  const pageSize = 20; // Increase page size for fullscreen
+  
+  let pageSize = 20;
+  try {
+      const { rows } = Deno.consoleSize();
+      // Adjust for header (2 lines) and footer (2 lines) and some padding
+      pageSize = Math.max(5, rows - 5);
+  } catch {
+      // Fallback if consoleSize is not available
+  }
+  
   const encoder = new TextEncoder();
 
   // Enter alternate screen & hide cursor
