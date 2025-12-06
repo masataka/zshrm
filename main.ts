@@ -1,5 +1,5 @@
 import { parseArgs } from "@std/cli/parse-args";
-import { runDedup, runClear } from "./commands.ts";
+import { runDedup, runClear, runDelete } from "./commands.ts";
 import { runUI } from "./ui.ts";
 import { writeHistory, type HistoryEntry } from "./history.ts";
 import { exists } from "@std/fs";
@@ -8,8 +8,8 @@ const DUMMY_HISTORY_PATH = "./dummy_zsh_history";
 
 async function main() {
   const args = parseArgs(Deno.args, {
-    boolean: ["help"],
-    alias: { h: "help" },
+    boolean: ["help", "force"],
+    alias: { h: "help", f: "force" },
   });
 
   if (args.help) {
@@ -27,8 +27,21 @@ async function main() {
       break;
     }
     case "clear": {
+      if (query) {
+          console.error("Error: 'clear' command does not accept arguments. Use 'delete <query>' for filtered deletion.");
+          Deno.exit(1);
+      }
       const historyPath = getHistoryPath();
-      await runClear(historyPath, query);
+      await runClear(historyPath, args.force);
+      break;
+    }
+    case "delete": {
+      if (!query) {
+          console.error("Error: 'delete' command requires a query argument.");
+          Deno.exit(1);
+      }
+      const historyPath = getHistoryPath();
+      await runDelete(historyPath, query, args.force);
       break;
     }
     case "ui": {
@@ -97,10 +110,12 @@ Usage:
 
 Commands:
   dedup           Deduplicate history (keep latest)
-  clear [query]   Clear history (optionally filter by query)
+  clear           Clear all history
+  delete <query>  Delete history matching query
   ui [query]      Interactive mode (optionally filter by query)
 
 Options:
+  -f, --force     Skip confirmation (for clear/delete command)
   -h, --help      Show this help message
   `);
 }

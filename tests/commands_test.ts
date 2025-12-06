@@ -1,5 +1,5 @@
 import { assertEquals } from "@std/assert";
-import { runDedup, runClear } from "../commands.ts";
+import { runDedup, runClear, runDelete } from "../commands.ts";
 import { writeHistory } from "../history.ts";
 
 const TEST_HISTORY_PATH = "./test_history_commands";
@@ -29,16 +29,17 @@ Deno.test("runDedup removes duplicates", async () => {
     await cleanup();
 });
 
-Deno.test("runClear removes all entries without query", async () => {
+Deno.test("runClear removes all entries", async () => {
     await setupHistory();
-    const removed = await runClear(TEST_HISTORY_PATH, undefined, false);
+    const removed = await runClear(TEST_HISTORY_PATH, true, false);
     assertEquals(removed, 4);
     await cleanup();
 });
 
-Deno.test("runClear removes filtered entries with query", async () => {
+Deno.test("runDelete removes filtered entries with query", async () => {
     await setupHistory();
-    const removed = await runClear(TEST_HISTORY_PATH, "grep", false);
+    const removed = await runDelete(TEST_HISTORY_PATH, "grep", true, false);
     assertEquals(removed, 1);
     await cleanup();
 });
+
