@@ -115,3 +115,8 @@ Interface）し、インタラクティブに操作します。
   を参照、またはデフォルトで `~/.zsh_history` を使用。
 - `EXTENDED_HISTORY`
   フォーマット（`: <timestamp>:<duration>;<command>`）および標準フォーマットに対応しています。
+
+# チャット対話
+
+このプロジェクトは、Antigraivityを用いて開発を行いました。Angieちゃんとのチャット対話の記録は、[chatlog.md](chatlog.md)
+に記録されています。
